@@ -52,6 +52,9 @@ vi.mock('~ui/src/components/HomeHero', () => ({
     </div>
   )
 }))
+vi.mock('~ui/src/components/HomeCategories', () => ({
+  HomeCategories: () => <div data-testid='home-categories' />
+}))
 vi.mock('~ui/src/components/PageBanner', () => ({
   PageBanner: ({ position }) => <div data-testid='page-banner' data-position={position} />
 }))

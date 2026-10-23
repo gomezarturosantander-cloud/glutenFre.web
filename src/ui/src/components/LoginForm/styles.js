@@ -47,6 +47,86 @@ export const Title = styled.h1`
   color: ${props => props.theme.colors.darkTextColor};
 `
 
+export const HeroBand = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: ${props => props.theme.colors.brandYellow};
+  box-sizing: border-box;
+  padding: 10px 20px 36px;
+  margin: -30px -20px 0;
+
+  img {
+    max-width: 150px;
+    max-height: 70px;
+    width: auto;
+    height: auto;
+  }
+
+  @media (min-width: 769px) {
+    border-radius: ${props => props.theme?.utils?.radius?.m}px ${props => props.theme?.utils?.radius?.m}px 0 0;
+    margin: -30px -20px 0;
+  }
+`
+
+export const FormCard = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  ${({ isCustomerMode }) => !isCustomerMode && css`
+    position: relative;
+    z-index: 1;
+    background-color: ${props => props.theme.colors.backgroundPage};
+    border-radius: ${props => props.theme?.utils?.radius?.m}px ${props => props.theme?.utils?.radius?.m}px 0 0;
+    margin: -24px -20px 0;
+    padding: 24px 20px 20px;
+    box-shadow: 0px -6px 16px 0px rgba(0, 0, 0, 0.06);
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -14px;
+      height: 28px;
+      background-color: ${props => props.theme.colors.darkGreen};
+      border-radius: 50%;
+      z-index: -1;
+    }
+  `}
+`
+
+export const CardTitle = styled.h2`
+  font-weight: 600;
+  font-size: 20px;
+  margin: 10px 0 20px;
+  text-align: center;
+  color: ${props => props.theme.colors.darkTextColor};
+`
+
+export const LegalText = styled.p`
+  width: ${({ isPopup }) => isPopup ? '100%' : '80%'};
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  color: ${props => props.theme.colors.darkGray};
+  margin: 20px 0 0;
+
+  a {
+    color: ${props => props.theme.colors.darkTextColor};
+    font-weight: 600;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`
+
 export const LoginWith = styled.div`
   width: ${({ isPopup }) => isPopup ? '100%' : '80%'};
   border-radius: ${props => props.theme?.utils?.radius?.m}px;
@@ -258,7 +338,31 @@ export const InputWrapper = styled.div`
     padding-right: 40px !important;
     padding-left: 20px !important;
     margin: 10px 0;
-    box-shadow: 0px 1px 4px 0px #0000001A;
+    background-color: ${props => props.theme.colors.secundary};
+    border-radius: ${props => props.theme?.utils?.radius?.m}px;
+    box-shadow: none;
+  }
+`
+
+export const PhoneInputWrapper = styled.div`
+  width: 100%;
+
+  .PhoneInput {
+    box-shadow: none;
+    border-radius: ${props => props.theme?.utils?.radius?.m}px;
+    overflow: hidden;
+  }
+
+  .PhoneInputCountry {
+    background-color: ${props => props.theme.colors.secundary} !important;
+    box-shadow: none !important;
+    border-radius: ${props => props.theme?.utils?.radius?.m}px 0 0 ${props => props.theme?.utils?.radius?.m}px !important;
+  }
+
+  .PhoneInputInput {
+    background-color: ${props => props.theme.colors.secundary} !important;
+    border-radius: 0 ${props => props.theme?.utils?.radius?.m}px ${props => props.theme?.utils?.radius?.m}px 0 !important;
+    box-shadow: none !important;
   }
 `
 

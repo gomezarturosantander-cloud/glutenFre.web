@@ -273,7 +273,11 @@ export const App = () => {
   const hasOrderSearchLocation = !!formatSearchQueryLocation(orderStatus.options?.address?.location)
   const hasOrderAddressContext = !!orderStatus.options?.address_id || hasOrderSearchLocation
   const hasBusinessSearchLocation = hasOrderSearchLocation || hasSearchQueryLocation
-  const shouldRedirectHomeToOrderLocation = !isKioskApp && !isFranchiseOne && !customOrderEnabled && hasOrderSearchLocation
+  // glutenfre: el Home (buscador + categorías) se muestra siempre en '/',
+  // incluso con una dirección ya guardada. El comportamiento default de
+  // Ordering salta directo a /search para usuarios recurrentes con
+  // dirección; acá el cliente pidió explícitamente que el Home no se salte.
+  const shouldRedirectHomeToOrderLocation = false
   const homeOrderLocationRedirectPath = singleBusinessConfig.isActive ? `/${singleBusinessConfig.businessSlug}` : '/search'
   const logoHomeTarget = shouldRedirectHomeToOrderLocation
     ? singleBusinessConfig.isActive

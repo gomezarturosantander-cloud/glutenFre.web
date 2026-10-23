@@ -142,11 +142,11 @@ export const Header = (props) => {
     orderState?.options?.address || orderState?.options?.address_id
   )
 
-  const hasOrderAddress = Boolean(
-    orderState?.options?.address?.address || orderState?.options?.address?.location
-  )
-
-  const hideHomeOrderContext = isHome && !hasOrderAddress
+  // glutenfre: el diseño del Home no contempla la barra de Entrega/Levantar +
+  // dirección arriba de todo (ver designs/02-inicio-comidas.png) — se oculta
+  // siempre en Home, con o sin dirección guardada, y se reubica chica y
+  // discreta dentro de HomeHero (ver HomeHero/index.js).
+  const hideHomeOrderContext = isHome
 
   const handleSuccessSignup = (user) => {
     closeAuthModal()

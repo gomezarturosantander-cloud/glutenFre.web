@@ -1,7 +1,29 @@
-# Development guide
+# glutenfre: Website (rediseño de frontend)
 
-Use Node 24 and pnpm 9.15.0. Initialize the shared-components submodule before installing or building. Commands and configuration are documented in README.md and setup.md.
+## Qué es
+Copia de trabajo del Website Marketplace de Ordering.co (React 18 + Vite + styled-components, pnpm, Node 24).
+Proyecto backend: `glutenfre` (marketplace de comida sin gluten, varias tiendas).
+Mi tarea: aplicar el diseño del cliente (colores, tipografía, logo, pantallas). No toco el backend.
 
-Keep controller logic in the shared-components repository and presentation in src/ui. Deep-import local and shared components; lazy-load heavy interaction components. The application uses React Router v5. Use theme tokens for styling, real translation fallbacks and retain existing locales. Do not edit the shared submodule from this repository.
+## Reglas
+- NO editar `src/@/components` (submódulo fijado de Ordering).
+- La presentación va en `src/ui`, `src/pages`, `src/theme.json` y estilos propios.
+- Sin claves, tokens ni archivos de Firebase en el código ni en el chat.
+- Es producción y no hay sandbox: NUNCA hacer pedidos, ni crear o borrar datos reales.
+- No hacer commit ni push sin que yo lo pida. Cambios chicos, uno por vez.
+- Antes de cambiar algo, explicar qué archivo y por qué. Responder en español.
 
-Run lint:check, build, i18n:verify, i18n:check-generated and test:coverage after relevant changes. Coverage configuration is scoped and must not be treated as whole-application verification. Keep environment credentials out of browser code and source control.
+## Comandos
+- Arrancar: `corepack pnpm marketplace:start` (http://127.0.0.1:3000)
+- Diagnóstico: `corepack pnpm marketplace:doctor`
+- Calidad antes de entregar: `pnpm lint:check`, `pnpm test`, `pnpm build`
+
+## Diseño
+Paleta: primary #FFE104, darkGreen #48B593, lightGreen #E0F0E8, secundary #F0F1F5, black/darkText #1E1E1C.
+Referencias de pantalla en `designs/` (SVG del cliente). Fuente: Averta (licencia por confirmar).
+Los diseños de `designs/` son de celular. La web se implementa mobile-first: fidelidad al diseño a 390px.
+En escritorio: mismo diseño centrado con ancho máximo, sin rediseñar. Revisar siempre ambos anchos.
+
+## Pendiente conocido
+Cambié `src/theme.json` pero el color no se ve en la página. Hipótesis: el tema viene del backend
+(configuración de la web en el Dashboard) y pisa el archivo local. Hay que investigarlo antes de seguir.

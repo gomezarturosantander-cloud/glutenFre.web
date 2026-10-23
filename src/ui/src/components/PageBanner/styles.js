@@ -86,10 +86,26 @@ export const ImageWrapper = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: ${props => props.theme?.utils?.radius?.s}px;
+    border-radius: ${props => props.theme?.utils?.radius?.m}px;
+  }
+`
 
-    @media (min-width: 768px) {
-      border-radius: ${props => props.theme?.utils?.radius?.m}px;
-    }
+export const EmptyBanner = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+  margin: 20px 0;
+  padding: 40px 20px;
+  border-radius: ${props => props.theme?.utils?.radius?.m}px;
+  background-color: ${props => props.theme.colors.lightGreen};
+  color: ${props => props.theme.colors.darkGreen};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  font-size: 14px;
+
+  svg {
+    font-size: 28px;
   }
 `

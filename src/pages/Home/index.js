@@ -10,6 +10,7 @@ import { parseSearchQueryLocation, resolveSearchQuery, hasValidSearchLocation } 
 
 import {
   HomeContainer,
+  MobileFrame,
   SkeletonContainer,
   SkeletonHeader,
   SkeletonContent,
@@ -23,6 +24,7 @@ import { useSession } from '~components/contexts/SessionContext'
 import { useConfig } from '~components/contexts/ConfigContext'
 import { useOrder } from '~components/contexts/OrderContext'
 import { HomeHero } from '~ui/src/components/HomeHero'
+import { HomeCategories } from '~ui/src/components/HomeCategories'
 import { PageBanner } from '~ui/src/components/PageBanner'
 import { CustomOrderBanner } from '~ui/src/components/CustomOrderBanner'
 import { CustomOrderModal } from '~ui/src/components/CustomOrderModal'
@@ -158,43 +160,46 @@ export const HomePage = (props) => {
     <>
       <HelmetTags page='home' />
       <HomeContainer>
-        <HomeHero
-          {...homeHeroProps}
-        />
-        {customOrderEnabled && (
-          <CustomOrderBanner onCustomOrderClick={() => setShowCustomOrder(true)} />
-        )}
-        {
-          homeState.loading && (
-            <SkeletonContainer>
-              <SkeletonHeader>
-                <Skeleton width='100%' height='100%' />
-              </SkeletonHeader>
-              <SkeletonContent>
-                <SkeletonInformation>
-                  <Skeleton width='100%' height='100px' />
-                  <Skeleton width='100%' height='100px' />
-                  <Skeleton width='100%' height='100px' />
-                  <Skeleton width='100%' height='100px' />
-                </SkeletonInformation>
-                <SkeletonSide>
+        <MobileFrame>
+          <HomeHero
+            {...homeHeroProps}
+          />
+          <HomeCategories />
+          {customOrderEnabled && (
+            <CustomOrderBanner onCustomOrderClick={() => setShowCustomOrder(true)} />
+          )}
+          {
+            homeState.loading && (
+              <SkeletonContainer>
+                <SkeletonHeader>
                   <Skeleton width='100%' height='100%' />
-                </SkeletonSide>
-              </SkeletonContent>
-            </SkeletonContainer>
-          )
-        }
-        {
-          displayContent && (
-              <div
-                ref={homeContentRef}
-                dangerouslySetInnerHTML={{
-                  __html: displayContent
-                }}
-              />
-          )
-        }
-        <PageBanner position='web_home_page' />
+                </SkeletonHeader>
+                <SkeletonContent>
+                  <SkeletonInformation>
+                    <Skeleton width='100%' height='100px' />
+                    <Skeleton width='100%' height='100px' />
+                    <Skeleton width='100%' height='100px' />
+                    <Skeleton width='100%' height='100px' />
+                  </SkeletonInformation>
+                  <SkeletonSide>
+                    <Skeleton width='100%' height='100%' />
+                  </SkeletonSide>
+                </SkeletonContent>
+              </SkeletonContainer>
+            )
+          }
+          {
+            displayContent && (
+                <div
+                  ref={homeContentRef}
+                  dangerouslySetInnerHTML={{
+                    __html: displayContent
+                  }}
+                />
+            )
+          }
+          <PageBanner position='web_home_page' />
+        </MobileFrame>
       </HomeContainer>
       {customOrderEnabled && (
         <CustomOrderModal

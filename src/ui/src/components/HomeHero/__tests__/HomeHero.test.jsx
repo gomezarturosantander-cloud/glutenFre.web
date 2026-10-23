@@ -66,12 +66,12 @@ describe('HomeHero', () => {
 
   it('renders search CTA and opens address modal without location', () => {
     const onFindBusiness = vi.fn()
-    const { getByText, getByTestId } = renderWithProviders(
+    const { getByTestId } = renderWithProviders(
       <HomeHero onFindBusiness={onFindBusiness} />,
       { theme: heroTheme }
     )
-    expect(getByText('Search')).toBeInTheDocument()
-    fireEvent.click(getByText('Search'))
+    expect(getByTestId('icon-search')).toBeInTheDocument()
+    fireEvent.click(getByTestId('icon-search'))
     expect(getByTestId('modal')).toBeInTheDocument()
     expect(getByTestId('address-form')).toBeInTheDocument()
     expect(onFindBusiness).not.toHaveBeenCalled()
@@ -84,11 +84,11 @@ describe('HomeHero', () => {
       carts: {}
     }
     const onFindBusiness = vi.fn()
-    const { getByText, queryByTestId } = renderWithProviders(
+    const { getByTestId, queryByTestId } = renderWithProviders(
       <HomeHero onFindBusiness={onFindBusiness} />,
       { theme: heroTheme }
     )
-    fireEvent.click(getByText('Search'))
+    fireEvent.click(getByTestId('icon-search'))
     expect(onFindBusiness).toHaveBeenCalled()
     expect(queryByTestId('modal')).not.toBeInTheDocument()
   })

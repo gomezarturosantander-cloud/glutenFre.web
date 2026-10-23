@@ -5,6 +5,22 @@ export const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
 `
+
+/**
+ * El diseño del cliente es de celular (designs/02-inicio-comidas.png).
+ * En escritorio no se rediseña: se centra el mismo layout con un ancho
+ * máximo fijo, como un "marco" de celular dentro de la pantalla ancha.
+ */
+export const MobileFrame = styled.div`
+  width: 100%;
+
+  @media (min-width: 576px) {
+    max-width: 480px;
+    margin: 0 auto;
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.08);
+    min-height: 100vh;
+  }
+`
 export const HomeSection = styled.div`
   display: flex;
   width: 100%;

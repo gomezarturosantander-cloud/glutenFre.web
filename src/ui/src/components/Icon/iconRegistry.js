@@ -198,7 +198,13 @@ import {
 } from 'react-icons/fc'
 
 import {
-  GiFoodTruck
+  GiFoodTruck,
+  GiCoffeeCup,
+  GiHotMeal,
+  GiPizzaSlice,
+  GiCakeSlice,
+  GiCroissant,
+  GiSteak
 } from 'react-icons/gi'
 
 import {
@@ -276,6 +282,12 @@ export const ICON_REGISTRY = {
   fullscreen: BsArrowsFullscreen,
   fullscreenExit: BsFullscreenExit,
   foodTruck: GiFoodTruck,
+  coffeeCup: GiCoffeeCup,
+  hotMeal: GiHotMeal,
+  pizzaSlice: GiPizzaSlice,
+  cakeSlice: GiCakeSlice,
+  croissant: GiCroissant,
+  steak: GiSteak,
   geoAltFill: BsGeoAltFill,
   gift: BsGift,
   giftOutline: AiOutlineGift,

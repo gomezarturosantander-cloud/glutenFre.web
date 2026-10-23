@@ -11,36 +11,48 @@ export const HeroContainerStyled = styled.div`
   `}
 
 
-  ${({ bgimage }) => bgimage && css`
-    background-repeat: no-repeat, repeat;
-    background-size: cover;
-    object-fit: cover;
-    background-position: center;
-  `}
+  ${({ bgimage, theme }) => bgimage
+    ? css`
+      background-repeat: no-repeat, repeat;
+      background-size: cover;
+      object-fit: cover;
+      background-position: center;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.15);
+        z-index: 1;
+      }
+    `
+    : css`
+      background-color: ${theme.colors.brandYellow};
+    `}
 
   @media (min-width: 375px) {
     min-height: 374px;
   }
 
   @media (min-width: 567px) {
-    height: calc(100vh - 65px);
-    height: calc(100dvh - 65px); /* dvh = visible viewport under mobile URL bars (vh fallback above) */
-    ${({ isFullScreen }) => !isFullScreen && css`
-      height: calc(60vh - 65px);
-      height: calc(60dvh - 65px);
-    `}
+    ${({ bgimage }) => bgimage
+      ? css`
+        height: calc(100vh - 65px);
+        height: calc(100dvh - 65px); /* dvh = visible viewport under mobile URL bars (vh fallback above) */
+        ${({ isFullScreen }) => !isFullScreen && css`
+          height: calc(60vh - 65px);
+          height: calc(60dvh - 65px);
+        `}
+      `
+      : css`
+        height: auto;
+        min-height: 0;
+        padding: 40px 0;
+      `}
     margin-bottom: 0;
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.15);
-    z-index: 1;
   }
 
   & > * {
@@ -50,7 +62,7 @@ export const HeroContainerStyled = styled.div`
 `
 
 export const HeroContainer = (props) => {
-  const style = { backgroundImage: `url(${props.bgimage})` }
+  const style = props.bgimage ? { backgroundImage: `url(${props.bgimage})` } : undefined
 
   return (
     <HeroContainerStyled {...props} style={style}>
@@ -148,10 +160,10 @@ export const WrapInput = styled.div`
   cursor: pointer;
   background: #FFFFFF;
   padding: 8px 16px;
-  border: 1px solid ${props => props.theme?.colors.darkGray};
+  border: none;
   box-sizing: border-box;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.12);
-  border-radius: ${props => props.theme?.utils?.radius?.s}px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);
+  border-radius: ${props => props.theme?.utils?.radius?.m}px;
   display: flex;
   align-items: center;
   transition: all 0.3s ease;
@@ -168,7 +180,8 @@ export const WrapInput = styled.div`
   }
 
   ${({ $withIcon }) => $withIcon && css`
-    width: calc(100%);
+    width: 100%;
+    height: 52px;
     box-sizing: border-box;
 
     &::before {
@@ -183,15 +196,6 @@ export const WrapInput = styled.div`
         left: 5px;
         right: initial;
      `}
-    }
-
-    @media (min-width: 576px) {
-      padding: 15px 25px;
-    }
-
-    @media (min-width: 1024px) {
-      width: calc(70% - 20px);
-      max-width: 765px;
     }
   `}
 
@@ -211,7 +215,7 @@ export const WrapInput = styled.div`
   }
 
   svg {
-    color: ${props => props?.theme?.colors?.primary};
+    color: ${props => props?.theme?.colors?.darkGray};
     font-size: 22px;
     transition: all 0.3s ease;
     ${props => props.theme?.rtl
@@ -278,14 +282,42 @@ export const SectionHeader = styled.div`
   width: 100%;
 `
 
-export const LogoWrapper = styled.div`
-  width: 150px;
-  margin: 53px auto;
+export const LogoBadgeRow = styled.div`
+  width: 100%;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  margin-bottom: 20px;
+`
+
+export const LogoWrapper = styled.div`
+  max-width: 140px;
+  display: flex;
   img {
     width: 100%;
-    object-fit: fill;
+    height: auto;
+    object-fit: contain;
+  }
+`
+
+export const BadgeWrapper = styled.div`
+  width: 44px;
+  flex-shrink: 0;
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+`
+
+export const DeliveryContextRow = styled.div`
+  margin-top: 10px;
+  font-size: 12px;
+  opacity: 0.85;
+
+  * {
+    font-size: 12px !important;
   }
 `
 export const HeroContent = styled.div`
@@ -298,41 +330,5 @@ export const HeroContent = styled.div`
   .input-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-
-    @media (min-width: 768px) {
-      flex-direction: row;
-      align-items: center;
-    }
-  }
-
-  button {
-    font-size: 14px;
-    line-height: 18px;
-    padding: 15px 16px;
-    white-space: nowrap;
-    border-radius: ${props => props.theme?.utils?.radius?.m}px;
-    margin-bottom: 20px;
-    transition: all 0.3s ease;
-
-    &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-      filter: brightness(1.1);
-    }
-
-    &:active {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    }
-
-    @media (min-width: 768px) {
-      width: 100%;
-      height: 100%;
-      font-size: 18px;
-      max-width: 254px;
-      margin-bottom: 0;
-      line-height: initial;
-    }
   }
 `

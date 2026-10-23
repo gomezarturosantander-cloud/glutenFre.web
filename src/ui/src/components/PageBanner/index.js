@@ -11,14 +11,17 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import {
   BannerContainer,
   BannerWrapper,
-  ImageWrapper
+  ImageWrapper,
+  EmptyBanner
 } from './styles'
 
 import { useSite } from '~components/contexts/SiteContext'
 import { useEvent } from '~components/contexts/EventContext'
+import { useLanguage } from '~components/contexts/LanguageContext'
 import { PageBanner as PageBannerController } from '~components/components/PageBanner'
 
 import { checkSiteUrl } from '~ui/utils'
+import { Icon } from '~ui-icon'
 
 const PageBannerUI = (props) => {
   const {
@@ -27,11 +30,13 @@ const PageBannerUI = (props) => {
     isCustomerMode,
     handleCustomProductBannerClick,
     business,
-    isHorizontal
+    isHorizontal,
+    showEmptyState
   } = props
 
   const [{ site }] = useSite()
   const [events] = useEvent()
+  const [, t] = useLanguage()
 
   const businessUrlTemplate = checkSiteUrl(site?.business_url_template, '/store/:business_slug')
   const productUrlTemplate = checkSiteUrl(site?.product_url_template, '/store/:business_slug?category=:category_id&product=:product_id')
@@ -181,6 +186,12 @@ const PageBannerUI = (props) => {
                 )}
           </BannerContainer>
         </>
+      )}
+      {!pageBannerState.loading && !pageBannerState.banner?.items?.length && showEmptyState && (
+        <EmptyBanner>
+          <Icon name='image' />
+          <span>{t('PAGE_BANNER_EMPTY', 'No promotional banner configured yet.')}</span>
+        </EmptyBanner>
       )}
     </>
   )

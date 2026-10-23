@@ -3,9 +3,11 @@ import { useTheme } from 'styled-components'
 import {
   HeroContainer,
   ContentWrapper,
-  Title,
   WrapInput,
   LogoWrapper,
+  LogoBadgeRow,
+  BadgeWrapper,
+  DeliveryContextRow,
   UseAccount,
   HeroContent,
   SectionHeader
@@ -21,8 +23,11 @@ import { LoginForm } from '~ui/src/components/LoginForm'
 import { SignUpForm } from '~ui/src/components/SignUpForm'
 import { ForgotPasswordForm } from '~ui/src/components/ForgotPasswordForm'
 import { AddressList } from '~ui/src/components/AddressList'
+import { AddressOrderType } from '~ui/src/components/AddressOrderType'
 import { useWindowSize } from '~ui/hooks/useWindowSize'
 import { getSiteLogoUrl } from '~/utils/siteBranding'
+import glutenFreLogo from '~/assets/images/logotype-glutenfre.svg'
+import glutenFreBadge from '~/assets/images/badge-sin-gluten.svg'
 
 import { Icon } from '~ui-icon'
 
@@ -120,57 +125,41 @@ export const HomeHero = (props) => {
   return (
     <HeroContainer
       mb={!auth && isShowLoginAccount && '30vh'}
-      bgimage={windowSize.width < 576
-        ? (mobileBgImg || theme.images?.general?.homeHeroMobile)
-        : (bgImg || theme.images?.general?.homeHero)}
+      bgimage={windowSize.width < 576 ? mobileBgImg : bgImg}
       isFullScreen={isFullScreen}
     >
       <ContentWrapper>
-        {windowSize.width < 576 && (
+        <LogoBadgeRow>
           <LogoWrapper>
             <img
               alt='Logotype'
               src={getSiteLogoUrl(
                 theme?.my_products?.components?.images?.components?.logo?.components?.image,
-                theme?.images?.logos?.logotypeInvert
+                glutenFreLogo
               )}
               loading='lazy'
             />
           </LogoWrapper>
-        )}
+          <BadgeWrapper>
+            <img alt='Sin Gluten' src={glutenFreBadge} loading='lazy' />
+          </BadgeWrapper>
+        </LogoBadgeRow>
         <HeroContent>
-          <Title>
-            {t('TITLE_HOME_2', theme?.defaultLanguages?.TITLE_HOME_2 || 'Shop easily, quickly, and securely.') === 'Shop easily, quickly, and securely.'
-              ? (
-                  <>
-                    Shop{' '}
-                    <span className="highlight">easily</span>
-                    {', '}
-                    <span className="highlight">quickly</span>
-                    {', and '}
-                    <span className="highlight">securely</span>
-                    {'.'}
-                  </>
-                )
-              : (
-                  t('TITLE_HOME_2', theme?.defaultLanguages?.TITLE_HOME_2 || 'Shop easily, quickly, and securely.')
-                )}
-          </Title>
           <div className='input-wrapper'>
             <WrapInput onClick={handleFindBusinesses} $withIcon>
-              <Icon name="mapMarker" />
+              <Icon name="search" />
               <p>
                 {orderState?.options?.address?.address || t('WHERE_DO_WE_DELIVER_2', theme?.defaultLanguages?.WHERE_DO_WE_DELIVER_2 || 'Enter where you want your order delivered.')}
               </p>
             </WrapInput>
-            <Button
-              color='primary'
-              name='find-business'
-              onClick={handleFindBusinesses}
-            >
-              {t('SEARCH', theme?.defaultLanguages?.SEARCH || 'Search')}
-            </Button>
           </div>
+          {/* La barra de Entrega/Levantar + dirección del Header se oculta en
+          Home (ver Header/index.js, hideHomeOrderContext) porque el diseño no
+          la contempla arriba de todo. Se reubica acá, chica y discreta, sin
+          sacarla de la lógica real (mismo componente AddressOrderType). */}
+          <DeliveryContextRow>
+            <AddressOrderType />
+          </DeliveryContextRow>
         </HeroContent>
       </ContentWrapper>
 

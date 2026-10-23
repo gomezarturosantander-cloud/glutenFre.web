@@ -19,11 +19,17 @@ import {
   ReCaptchaWrapper,
   InputBeforeIcon,
   InputWrapper,
-  Title,
+  PhoneInputWrapper,
   ValidationText,
   LogotypeContainer,
   HeroSide,
-  ResendCode
+  ResendCode,
+  HeroBand,
+  FormCard,
+  CardTitle,
+  LegalText,
+  LoginDivider,
+  DividerLine
 } from './styles'
 
 import { LoginForm as LoginFormController } from '~components/components/LoginForm'
@@ -384,6 +390,12 @@ const LoginFormUI = (props) => {
         </HeroSide>
       )}
       <FormSide isPopup={isPopup} isCustomerMode={isCustomerMode}>
+        {!isCustomerMode && (
+          <HeroBand>
+            <img alt='Logotype' src={theme?.images?.logos?.logotype} loading='lazy' />
+          </HeroBand>
+        )}
+        <FormCard isCustomerMode={isCustomerMode}>
         {isCustomerMode
           ? (
           <LogotypeContainer>
@@ -391,7 +403,7 @@ const LoginFormUI = (props) => {
           </LogotypeContainer>
             )
           : (
-          <Title>{t('LOGIN', 'Login')}</Title>
+          <CardTitle>{t('SIGNUP_OR_LOGIN', 'Sign up or log in')}</CardTitle>
             )}
 
         {((Number(useLoginByEmail) + Number(useLoginByCellphone) + Number(useLoginOtpEmail) + Number(useLoginOtpCellphone) + Number(useLoginSpoonity) > 1) && !loginWithOtpState && !willVerifyOtpState) && (
@@ -507,13 +519,15 @@ const LoginFormUI = (props) => {
                   {formMethods.errors?.cellphone?.message} {formMethods?.errors?.cellphone?.type === 'required' && '*'}
                 </ValidationText>
               )}
-              <InputPhoneNumber
-                showPhoneIcon
-                value={credentials?.cellphone}
-                setValue={handleChangePhoneNumber}
-                handleIsValid={() => { }}
-                isError={formMethods.errors?.cellphone && !credentials?.cellphone}
-              />
+              <PhoneInputWrapper>
+                <InputPhoneNumber
+                  showPhoneIcon
+                  value={credentials?.cellphone}
+                  setValue={handleChangePhoneNumber}
+                  handleIsValid={() => { }}
+                  isError={formMethods.errors?.cellphone && !credentials?.cellphone}
+                />
+              </PhoneInputWrapper>
             </>
           )}
 
@@ -603,7 +617,7 @@ const LoginFormUI = (props) => {
             ? (
             <div style={{ display: 'flex', gap: 10, width: '100%' }}>
               <Button
-                color='primary'
+                color={isCustomerMode ? 'primary' : 'green'}
                 type='button'
                 disabled={formState.loading || isSocialLoading}
                 onClick={() => { otpChannelRef.current = 2; formMethods.handleSubmit(onSubmit)() }}
@@ -614,7 +628,7 @@ const LoginFormUI = (props) => {
                   : t('SEND_BY_SMS', 'Send by SMS')}
               </Button>
               <Button
-                color='primary'
+                color={isCustomerMode ? 'primary' : 'green'}
                 type='button'
                 disabled={formState.loading || isSocialLoading}
                 onClick={() => { otpChannelRef.current = 4; formMethods.handleSubmit(onSubmit)() }}
@@ -628,7 +642,7 @@ const LoginFormUI = (props) => {
               )
             : (!willVerifyOtpState &&
               <Button
-                color='primary'
+                color={isCustomerMode ? 'primary' : 'green'}
                 onClick={formMethods.handleSubmit(onSubmit)}
                 disabled={formState.loading || isSocialLoading}
               >
@@ -668,7 +682,15 @@ const LoginFormUI = (props) => {
           </RedirectLink>
         )}
         {(!props.isDisableButtons && !loginWithOtpState) && (
-          Object.keys(configs).length > 0
+          <>
+            {!isCustomerMode && (
+              <LoginDivider isPopup={isPopup}>
+                <DividerLine />
+                <p>{t('OR', 'or')}</p>
+                <DividerLine />
+              </LoginDivider>
+            )}
+          {Object.keys(configs).length > 0
             ? (
             <SocialButtons isPopup={isPopup}>
               {facebookLoginEnabled &&
@@ -738,8 +760,23 @@ const LoginFormUI = (props) => {
                 <Skeleton height={43} />
               )}
             </SkeletonSocialWrapper>
-              )
+              )}
+          </>
         )}
+
+        {(!isCustomerMode && !loginWithOtpState && !willVerifyOtpState) && (
+          <LegalText isPopup={isPopup}>
+            {t('LOGIN_LEGAL_TEXT_1', 'By continuing, you agree to our')}{' '}
+            <a href={t('COOKIE_TERMS_URL', '/pages/terms_of_use')}>
+              {t('TERMS_AND_CONDITIONS', 'Terms & Conditions')}
+            </a>{' '}
+            {t('LOGIN_LEGAL_TEXT_2', 'and confirm that you have read and understood our')}{' '}
+            <a href={t('COOKIE_PRIVACY_URL', '/pages/privacy_policy')}>
+              {t('PRIVACY_POLICY', 'Privacy Policy')}
+            </a>.
+          </LegalText>
+        )}
+        </FormCard>
       </FormSide>
       <Alert
         title={t('LOGIN', 'Login')}

@@ -17,9 +17,10 @@
     }
   },
   "colors": {
-    "primary": "#000000",
+    "primary": "#FFE104",
+    "brandYellow": "#FFE104",
     "primaryContrast": "#E9F2FE",
-    "secundary": "#EFEFEF",
+    "secundary": "#F0F1F5",
     "secundaryContrast": "#000",
     "disabled": "#CBCBCB",
     "disabledContrast": "#000",
@@ -28,7 +29,7 @@
     "colorTextSignForm": "#FFFFFF",
     "headingColor": "#000",
     "darkGray": "#616161",
-    "darkTextColor": "#000",
+    "darkTextColor": "#1E1E1C",
     "lightGray": "#B1BCCC",
     "darkPrimaryColor": "#03459E",
     "grayDividerColor": "#F8F9FA",
@@ -42,11 +43,11 @@
     "links": "#2C7BE5",
     "success500": "#00D27A",
     "secondaryDark": "#414954",
-    "black": "#000000",
+    "black": "#1E1E1C",
     "white": "#FFFFFF",
     "backgroundInfo": "#F5F9FF",
-    "lightGreen": "#D6FFF7",
-    "darkGreen": "#21BC9E",
+    "lightGreen": "#E0F0E8",
+    "darkGreen": "#48B593",
     "gray300": "#F8F9FA"
   },
   "defaultLanguages": {
